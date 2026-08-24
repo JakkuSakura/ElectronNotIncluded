@@ -7,7 +7,7 @@
 use noise::{Fbm, NoiseFn, Perlin};
 
 use crate::chemistry::{Composition, SubstanceId, SubstanceRegistry};
-use crate::chunk::{CHUNK_SIZE_U32, ChunkCoord, TileGrid, WorldChunk};
+use crate::chunk::{CHUNK_SIZE_U32, ChunkCoord, TileGrid, VelocityField, WorldChunk};
 
 /// A deterministic 64-bit hash of `(seed, x, y)`, used anywhere generation
 /// needs a "random" decision that must reproduce identically for the same
@@ -90,6 +90,7 @@ pub fn generate_chunk(seed: u32, chunk: ChunkCoord, registry: &SubstanceRegistry
     WorldChunk {
         coord: chunk,
         tiles,
+        velocity: VelocityField::new(),
     }
 }
 

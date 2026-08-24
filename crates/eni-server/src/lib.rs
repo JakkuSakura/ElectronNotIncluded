@@ -2,6 +2,7 @@
 //! and the chemistry simulation tick.
 
 mod chunk_manager;
+mod fluid;
 mod player_movement;
 mod simulation;
 mod time;

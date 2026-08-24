@@ -81,9 +81,13 @@ Each server tick runs, per loaded chunk:
 
 1. **Heat diffusion** between orthogonal tile neighbors, proportional to
    combined thermal conductivity and temperature delta.
-2. **Mass transfer**: gas tiles equalize mass with lower-mass gas neighbors
-   (a simplification standing in for a full pressure field); liquid tiles
-   gravity-flow a fraction of their mass into an open tile below.
+2. **Fluid step** (`eni_server::fluid::step_fluid`): a full incompressible
+   Navier-Stokes solver using Jos Stam's "Stable Fluids" method — external
+   forces (buoyancy/gravity), viscous diffusion, pressure projection,
+   semi-Lagrangian advection of velocity, projection again, then
+   semi-Lagrangian advection of per-tile mass/temperature through the
+   resulting divergence-free velocity field. One mixture velocity field per
+   tile; solid tiles and the chunk edge are treated as zero-flow boundaries.
 3. **Reaction resolution**: each tile's contents are checked against the
    loaded reaction rules.
 
@@ -95,8 +99,9 @@ capacity — there is no "un-mix" operation.
 This is a foundational pass. Explicitly out of scope for now:
 
 - Devices and machines.
-- Full Navier-Stokes fluid dynamics (mass transfer is a simplified
-  approximation, documented inline).
+- Cross-chunk fluid flow, vorticity confinement, and exact reflective
+  boundary conditions at solid interfaces (the fluid solver runs per single
+  chunk with the chunk edge treated as a wall; see `eni-server/src/fluid.rs`).
 - Multi-chunk streaming/persistence beyond a single loaded chunk radius.
 - Phase-change *effects* beyond detecting a crossed melting/boiling point.
 - Client rendering polish (tiles are flat colored squares).

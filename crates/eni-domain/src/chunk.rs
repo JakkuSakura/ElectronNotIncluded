@@ -67,7 +67,7 @@ impl TileGrid {
     }
 
     fn index(local_x: u32, local_y: u32) -> usize {
-        local_y as usize * CHUNK_SIZE_U32 as usize + local_x as usize
+        grid_index(local_x, local_y)
     }
 
     pub fn get(&self, local_x: u32, local_y: u32) -> &Composition {
@@ -97,10 +97,57 @@ impl Default for TileGrid {
     }
 }
 
+/// Shared cell-index formula for any `CHUNK_SIZE_U32` x `CHUNK_SIZE_U32`
+/// row-major grid (used by both `TileGrid` and `VelocityField`).
+pub(crate) fn grid_index(local_x: u32, local_y: u32) -> usize {
+    local_y as usize * CHUNK_SIZE_U32 as usize + local_x as usize
+}
+
+/// One bulk-flow velocity per tile: the single mixture velocity field used
+/// by the fluid solver. There is deliberately no separate gas/liquid
+/// velocity field, matching the single-`Composition`-per-tile design.
+#[derive(Clone, Debug)]
+pub struct VelocityField {
+    pub data: Vec<Vec2>,
+}
+
+impl VelocityField {
+    pub fn new() -> Self {
+        Self {
+            data: vec![Vec2::ZERO; CHUNK_AREA],
+        }
+    }
+
+    pub fn get(&self, local_x: u32, local_y: u32) -> Vec2 {
+        self.data[grid_index(local_x, local_y)]
+    }
+
+    pub fn get_mut(&mut self, local_x: u32, local_y: u32) -> &mut Vec2 {
+        &mut self.data[grid_index(local_x, local_y)]
+    }
+
+    pub fn set(&mut self, local_x: u32, local_y: u32, v: Vec2) {
+        self.data[grid_index(local_x, local_y)] = v;
+    }
+
+    /// Snapshot the raw backing data, for solver steps that need to read a
+    /// pre-update copy while writing into `self`.
+    pub fn clone_data(&self) -> Vec<Vec2> {
+        self.data.clone()
+    }
+}
+
+impl Default for VelocityField {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct WorldChunk {
     pub coord: ChunkCoord,
     pub tiles: TileGrid,
+    pub velocity: VelocityField,
 }
 
 #[derive(Message, Clone, Debug)]
@@ -213,6 +260,7 @@ mod tests {
         let chunk = WorldChunk {
             coord: ChunkCoord { x: 1, y: -2 },
             tiles: grid,
+            velocity: VelocityField::new(),
         };
         let data = ChunkData::from_chunk(&chunk);
         assert_eq!(data.chunk_coord, ChunkCoord { x: 1, y: -2 });

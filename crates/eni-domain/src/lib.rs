@@ -15,7 +15,7 @@ pub use chemistry::{
 };
 pub use chunk::{
     CHUNK_AREA, CHUNK_SIZE, CHUNK_SIZE_U32, ChunkCoord, ChunkData, PlayerMoveIntent,
-    PlayerPosition, TileGrid, UnloadChunk, WorldChunk, WorldCoord,
+    PlayerPosition, TileGrid, UnloadChunk, VelocityField, WorldChunk, WorldCoord,
 };
 pub use data::{DataError, GameData};
 pub use world::{generate_chunk, stable_hash};
