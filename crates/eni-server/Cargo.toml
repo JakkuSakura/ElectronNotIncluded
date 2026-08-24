@@ -1,0 +1,11 @@
+[package]
+name = "eni-server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+bevy.workspace = true
+eni-domain.workspace = true
+tracing.workspace = true

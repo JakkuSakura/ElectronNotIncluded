@@ -1,0 +1,52 @@
+[
+  {
+    "id": "air",
+    "name": "Air",
+    "phase_at_stp": "gas",
+    "density_kg_per_m3": 1.225,
+    "specific_heat_j_per_kg_k": 1005.0,
+    "melting_point_k": 59.0,
+    "boiling_point_k": 78.8,
+    "thermal_conductivity": 0.026
+  },
+  {
+    "id": "water",
+    "name": "Water",
+    "phase_at_stp": "liquid",
+    "density_kg_per_m3": 1000.0,
+    "specific_heat_j_per_kg_k": 4186.0,
+    "melting_point_k": 273.15,
+    "boiling_point_k": 373.15,
+    "thermal_conductivity": 0.6
+  },
+  {
+    "id": "nacl",
+    "name": "Sodium Chloride",
+    "phase_at_stp": "solid",
+    "density_kg_per_m3": 2170.0,
+    "specific_heat_j_per_kg_k": 880.0,
+    "melting_point_k": 1074.0,
+    "boiling_point_k": 1686.0,
+    "thermal_conductivity": 6.5
+  },
+  {
+    "id": "rock",
+    "name": "Rock",
+    "phase_at_stp": "solid",
+    "density_kg_per_m3": 2700.0,
+    "specific_heat_j_per_kg_k": 790.0,
+    "melting_point_k": 1473.0,
+    "boiling_point_k": 2950.0,
+    "thermal_conductivity": 2.0
+  },
+  {
+    "id": "dirt",
+    "name": "Dirt",
+    "phase_at_stp": "solid",
+    "density_kg_per_m3": 1300.0,
+    "specific_heat_j_per_kg_k": 1250.0,
+    "melting_point_k": 1573.0,
+    "boiling_point_k": 3000.0,
+    "thermal_conductivity": 0.5
+  }
+]

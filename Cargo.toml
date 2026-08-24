@@ -1,0 +1,35 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/eni-domain",
+    "crates/eni-server",
+    "crates/eni-client",
+    "crates/eni",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Jakku Sakura"]
+
+[workspace.dependencies]
+axum = "0.8"
+bevy = "0.19"
+clap = { version = "4", features = ["derive"] }
+eni-domain = { path = "crates/eni-domain" }
+eni-server = { path = "crates/eni-server" }
+eni-client = { path = "crates/eni-client" }
+bevy_egui = { version = "0.41", default-features = false, features = [
+    "default_fonts",
+    "render",
+] }
+image = { version = "0.25", default-features = false, features = ["png"] }
+imageproc = "0.24"
+ab_glyph = "0.2"
+noise = "0.9"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "net", "rt-multi-thread", "sync", "time"] }
+thiserror = "2"
+tracing = "0.1"

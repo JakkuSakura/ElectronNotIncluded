@@ -1,0 +1,23 @@
+[package]
+name = "eni"
+default-run = "eni"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+axum.workspace = true
+bevy.workspace = true
+clap.workspace = true
+eni-client.workspace = true
+eni-domain.workspace = true
+eni-server.workspace = true
+image.workspace = true
+imageproc.workspace = true
+ab_glyph.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
